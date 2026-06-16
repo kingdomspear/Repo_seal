@@ -34,6 +34,12 @@ Open the local Vite URL shown in the terminal, usually `http://localhost:5173`.
 npm run build
 ```
 
+## GitHub Pages Deployment
+
+This project is configured for the repository URL `https://kingdomspear.github.io/Repo_seal/`.
+
+Deployment runs through GitHub Actions in `.github/workflows/deploy.yml`. In the repository settings, set **Pages > Build and deployment > Source** to **GitHub Actions**, then push to `main`.
+
 ## Tech Stack
 
 - React
