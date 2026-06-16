@@ -45,7 +45,7 @@ export const translations = {
       analyzing: "Analyzing Repository",
       validation: {
         empty: "Enter a GitHub repository URL before starting the scan.",
-        domain: "RepoSeal only accepts github.com repository URLs in this MVP.",
+        domain: "RepoSeal accepts github.com repository URLs or GitHub Pages project URLs in this MVP.",
         repository: "Use a full repository URL like https://github.com/user/repository.",
         invalid: "Use a valid URL like https://github.com/user/repository.",
       },
@@ -183,7 +183,7 @@ export const translations = {
       analyzing: "저장소 분석 중",
       validation: {
         empty: "스캔을 시작하려면 GitHub 저장소 URL을 입력하세요.",
-        domain: "현재 MVP에서는 github.com 저장소 URL만 사용할 수 있습니다.",
+        domain: "현재 MVP에서는 github.com 저장소 URL 또는 GitHub Pages 프로젝트 URL을 사용할 수 있습니다.",
         repository: "https://github.com/user/repository 형식의 전체 저장소 URL을 입력하세요.",
         invalid: "https://github.com/user/repository 형식의 올바른 URL을 입력하세요.",
       },

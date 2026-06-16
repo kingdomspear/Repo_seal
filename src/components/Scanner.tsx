@@ -12,27 +12,51 @@ interface ScannerProps {
   language: Language;
 }
 
-function validateGitHubUrl(value: string, messages: AppCopy["scanner"]["validation"]): string | null {
+interface ValidationResult {
+  error: string | null;
+  repositoryUrl: string;
+}
+
+function normalizeRepositoryUrl(value: string, messages: AppCopy["scanner"]["validation"]): ValidationResult {
   if (!value.trim()) {
-    return messages.empty;
+    return { error: messages.empty, repositoryUrl: "" };
   }
 
   try {
     const url = new URL(value.trim());
     const isGitHub = url.hostname === "github.com" || url.hostname === "www.github.com";
+    const githubPagesMatch = url.hostname.match(/^([a-z0-9-]+)\.github\.io$/i);
 
-    if (!isGitHub) {
-      return messages.domain;
+    const pathParts = url.pathname
+      .split("/")
+      .filter(Boolean)
+      .map((part) => part.replace(/\.git$/i, ""));
+
+    if (isGitHub) {
+      if (pathParts.length < 2) {
+        return { error: messages.repository, repositoryUrl: "" };
+      }
+
+      return {
+        error: null,
+        repositoryUrl: `https://github.com/${pathParts[0]}/${pathParts[1]}`,
+      };
     }
 
-    const pathParts = url.pathname.split("/").filter(Boolean);
+    if (githubPagesMatch && pathParts.length >= 1) {
+      return {
+        error: null,
+        repositoryUrl: `https://github.com/${githubPagesMatch[1]}/${pathParts[0]}`,
+      };
+    }
+
     if (pathParts.length < 2) {
-      return messages.repository;
+      return { error: messages.repository, repositoryUrl: "" };
     }
 
-    return null;
+    return { error: messages.domain, repositoryUrl: "" };
   } catch {
-    return messages.invalid;
+    return { error: messages.invalid, repositoryUrl: "" };
   }
 }
 
@@ -56,9 +80,9 @@ export function Scanner({ copy, resultCopy, language }: ScannerProps): JSX.Eleme
   function handleSubmit(event: FormEvent<HTMLFormElement>): void {
     event.preventDefault();
 
-    const validationError = validateGitHubUrl(repositoryUrl, copy.validation);
-    if (validationError) {
-      setError(validationError);
+    const validationResult = normalizeRepositoryUrl(repositoryUrl, copy.validation);
+    if (validationResult.error) {
+      setError(validationResult.error);
       setScannedRepositoryUrl(null);
       return;
     }
@@ -67,13 +91,12 @@ export function Scanner({ copy, resultCopy, language }: ScannerProps): JSX.Eleme
       window.clearTimeout(timerRef.current);
     }
 
-    const normalizedUrl = repositoryUrl.trim();
     setError("");
     setScannedRepositoryUrl(null);
     setIsLoading(true);
 
     timerRef.current = window.setTimeout(() => {
-      setScannedRepositoryUrl(normalizedUrl);
+      setScannedRepositoryUrl(validationResult.repositoryUrl);
       setIsLoading(false);
       window.requestAnimationFrame(() => {
         resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
