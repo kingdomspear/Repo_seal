@@ -10,12 +10,23 @@ import { Scanner } from "./components/Scanner";
 import { translations } from "./data/translations";
 import type { Language } from "./types/language";
 
+function getInitialLanguage(): Language {
+  const savedLanguage = window.localStorage.getItem("reposeal-language");
+
+  if (savedLanguage === "en" || savedLanguage === "ko") {
+    return savedLanguage;
+  }
+
+  return "ko";
+}
+
 export function App(): JSX.Element {
-  const [language, setLanguage] = useState<Language>("en");
+  const [language, setLanguage] = useState<Language>(getInitialLanguage);
   const copy = translations[language];
 
   useEffect(() => {
     document.documentElement.lang = language;
+    window.localStorage.setItem("reposeal-language", language);
   }, [language]);
 
   return (
