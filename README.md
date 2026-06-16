@@ -40,6 +40,8 @@ This project is configured for the repository URL `https://kingdomspear.github.i
 
 Deployment runs through GitHub Actions in `.github/workflows/deploy.yml`. In the repository settings, set **Pages > Build and deployment > Source** to **GitHub Actions**, then push to `main`.
 
+If the live site tries to load `/src/main.tsx`, GitHub Pages is serving the repository root instead of the built `dist` artifact. Re-run the Pages workflow after switching the source to **GitHub Actions**.
+
 ## Tech Stack
 
 - React
