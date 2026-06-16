@@ -113,11 +113,18 @@ export function ScanResult({ result, copy }: ScanResultProps): JSX.Element {
 
       <div className="mt-7">
         <h4 className="text-lg font-black text-white">{copy.foundIssues}</h4>
-        <ul className="mt-4 grid gap-3">
-          {result.issues.map((issue) => (
-            <IssueRow key={issue.id} issue={issue} severityLabels={copy.severityLabels} />
-          ))}
-        </ul>
+        {result.issues.length > 0 ? (
+          <ul className="mt-4 grid gap-3">
+            {result.issues.map((issue) => (
+              <IssueRow key={issue.id} issue={issue} severityLabels={copy.severityLabels} />
+            ))}
+          </ul>
+        ) : (
+          <div className="mt-4 flex items-center gap-3 rounded-lg border border-emerald-300/20 bg-emerald-500/10 p-4 text-sm font-bold text-emerald-100">
+            <CheckCircle2 size={20} className="flex-none" />
+            {copy.noIssues}
+          </div>
+        )}
       </div>
     </section>
   );

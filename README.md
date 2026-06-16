@@ -1,18 +1,27 @@
 # RepoSeal
 
-RepoSeal is an open-source web service concept for checking GitHub repositories before they become public. It scans for exposed secrets, risky configuration files, README quality issues, missing licenses, and deployment risks, then presents a public-ready safety report.
+RepoSeal is an open-source web service for checking GitHub repositories before they become public. It scans exposed secrets, risky configuration files, README quality issues, missing licenses, deployment risks, and public-ready checklist gaps, then presents a safety report with fix guidance.
 
-This repository currently contains a frontend MVP built with mock scan data. No GitHub API or backend scanner is connected yet.
+The current version runs as a static frontend and scans public GitHub repositories directly from the browser with the GitHub API. Private repositories and authenticated high-volume scans require a backend integration in a future release.
 
 ## Features
 
-- GitHub repository URL input with basic validation
+- GitHub repository URL and GitHub Pages project URL input with validation
 - English and Korean language toggle
-- Demo scan flow with loading state and automatic result scrolling
+- Real public repository scan flow with loading state and automatic result scrolling
 - Public Safety Score and release risk summary
-- Severity-tagged issues for secrets, configs, documentation, license, CORS, and Docker exposure
+- Severity-tagged issues for secrets, risky files, documentation, license, CORS, debug mode, and Docker exposure
 - Feature cards for secret detection, risky config scanning, README checks, deployment review, public-ready checklist, and auto fix guidance
 - Responsive dark glassmorphism UI inspired by modern developer tooling
+
+## Scanner Rules
+
+- Secret detection: OpenAI keys, GitHub tokens, AWS access keys, Google API keys, Slack tokens, private key blocks, JWT-like tokens, and generic secret assignments
+- Risky config scan: `.env`, `.npmrc`, `.pypirc`, `.netrc`, private key files, certificate/key bundles, and SSH private keys
+- README quality check: missing README, missing installation steps, missing usage/run instructions, and missing environment variable documentation
+- License check: missing GitHub license metadata or common license files
+- Deployment risk review: wildcard CORS, enabled debug mode, and exposed database ports in Docker/container configuration
+- Public-ready checklist and auto fix guide: missing `.gitignore`, missing `.env.example`, and fix recommendations for every issue
 
 ## Installation
 

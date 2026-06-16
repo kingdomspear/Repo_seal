@@ -2,8 +2,9 @@ import type { JSX } from "react";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { ArrowRight, Github, Loader2, Search, ShieldAlert } from "lucide-react";
 import type { AppCopy } from "../data/translations";
-import { createMockScanResult } from "../data/mockScanResult";
 import type { Language } from "../types/language";
+import type { ScanResult as ScanResultType } from "../types/scan";
+import { scanGitHubRepository } from "../services/repositoryScanner";
 import { ScanResult } from "./ScanResult";
 
 interface ScannerProps {
@@ -64,44 +65,58 @@ export function Scanner({ copy, resultCopy, language }: ScannerProps): JSX.Eleme
   const [repositoryUrl, setRepositoryUrl] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [scannedRepositoryUrl, setScannedRepositoryUrl] = useState<string | null>(null);
+  const [result, setResult] = useState<ScanResultType | null>(null);
   const resultRef = useRef<HTMLDivElement | null>(null);
-  const timerRef = useRef<number | null>(null);
-  const result = scannedRepositoryUrl ? createMockScanResult(scannedRepositoryUrl, language) : null;
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
     return () => {
-      if (timerRef.current !== null) {
-        window.clearTimeout(timerRef.current);
-      }
+      abortControllerRef.current?.abort();
     };
   }, []);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>): void {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault();
 
     const validationResult = normalizeRepositoryUrl(repositoryUrl, copy.validation);
     if (validationResult.error) {
       setError(validationResult.error);
-      setScannedRepositoryUrl(null);
+      setResult(null);
       return;
     }
 
-    if (timerRef.current !== null) {
-      window.clearTimeout(timerRef.current);
-    }
+    abortControllerRef.current?.abort();
+    const abortController = new AbortController();
+    abortControllerRef.current = abortController;
 
     setError("");
-    setScannedRepositoryUrl(null);
+    setResult(null);
     setIsLoading(true);
 
-    timerRef.current = window.setTimeout(() => {
-      setScannedRepositoryUrl(validationResult.repositoryUrl);
-      setIsLoading(false);
+    try {
+      const scanResult = await scanGitHubRepository(
+        validationResult.repositoryUrl,
+        language,
+        abortController.signal,
+      );
+
+      setResult(scanResult);
       window.requestAnimationFrame(() => {
         resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
       });
-    }, 1000);
+    } catch (scanError) {
+      if (abortController.signal.aborted) {
+        return;
+      }
+
+      setError(scanError instanceof Error ? scanError.message : copy.validation.invalid);
+    } finally {
+      if (!abortController.signal.aborted) {
+        abortControllerRef.current = null;
+      }
+
+      setIsLoading(false);
+    }
   }
 
   return (

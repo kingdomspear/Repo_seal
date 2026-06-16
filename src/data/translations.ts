@@ -36,9 +36,9 @@ export const translations = {
       eyebrow: "Repository scanner",
       title: "Paste a GitHub URL and get a public-release risk snapshot.",
       description:
-        "This MVP runs on mock analysis data so you can preview the workflow before a backend scanner is connected.",
+        "RepoSeal reads public GitHub repositories in your browser, scans selected files, and generates a rule-based safety report.",
       cardTitle: "Analyze Repository",
-      cardSubtitle: "Demo scan · no GitHub API required",
+      cardSubtitle: "Public repo scan · GitHub API",
       inputLabel: "GitHub Repository URL",
       placeholder: "https://github.com/user/repository",
       analyze: "Analyze Repository",
@@ -59,6 +59,7 @@ export const translations = {
       highIssues: "High Issues",
       recommendedFixes: "Recommended Fixes",
       foundIssues: "Found Issues",
+      noIssues: "No issues found with the current scan rules.",
       severityLabels: {
         critical: "Critical",
         high: "High",
@@ -174,9 +175,9 @@ export const translations = {
       eyebrow: "저장소 스캐너",
       title: "GitHub URL을 붙여넣고 공개 전 위험 스냅샷을 확인하세요.",
       description:
-        "현재 MVP는 mock 분석 데이터를 사용하므로 백엔드 스캐너 연결 전에도 전체 흐름을 미리 볼 수 있습니다.",
+        "RepoSeal은 브라우저에서 공개 GitHub 저장소를 읽고 선택된 파일을 실제 규칙 기반으로 스캔해 안전 리포트를 생성합니다.",
       cardTitle: "저장소 분석",
-      cardSubtitle: "데모 스캔 · GitHub API 불필요",
+      cardSubtitle: "공개 저장소 스캔 · GitHub API",
       inputLabel: "GitHub 저장소 URL",
       placeholder: "https://github.com/user/repository",
       analyze: "저장소 분석",
@@ -197,6 +198,7 @@ export const translations = {
       highIssues: "높음 이슈",
       recommendedFixes: "권장 수정",
       foundIssues: "발견된 이슈",
+      noIssues: "현재 스캔 규칙 기준으로 발견된 이슈가 없습니다.",
       severityLabels: {
         critical: "치명",
         high: "높음",
