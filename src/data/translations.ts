@@ -37,6 +37,9 @@ export const translations = {
       title: "Paste a GitHub URL and get a public-release risk snapshot.",
       description:
         "RepoSeal reads public GitHub repositories in your browser, scans selected files, and generates a rule-based safety report.",
+      assuranceTitle: "Assistive scan, not a guarantee",
+      assuranceBody:
+        "RepoSeal helps developers find likely public-release risks, but it cannot prove a repository is perfectly safe. Review the result with your own security, legal, and deployment checklist before publishing.",
       cardTitle: "Analyze Repository",
       cardSubtitle: "Public repo scan · GitHub API",
       inputLabel: "GitHub Repository URL",
@@ -60,6 +63,15 @@ export const translations = {
       recommendedFixes: "Recommended Fixes",
       foundIssues: "Found Issues",
       noIssues: "No issues found with the current scan rules.",
+      disclaimerTitle: "Use this as guidance",
+      disclaimerBody:
+        "RepoSeal is an assistive scanner. It may miss issues or flag false positives, so it should support your review process rather than replace manual security review.",
+      actionPlan: "Developer Action Plan",
+      noActionItems:
+        "Keep the repository checklist in your release notes, and re-run the scan before changing visibility or deployment settings.",
+      copyReport: "Copy Markdown",
+      copiedReport: "Copied",
+      downloadReport: "Download Report",
       severityLabels: {
         critical: "Critical",
         high: "High",
@@ -176,6 +188,9 @@ export const translations = {
       title: "GitHub URL을 붙여넣고 공개 전 위험 스냅샷을 확인하세요.",
       description:
         "RepoSeal은 브라우저에서 공개 GitHub 저장소를 읽고 선택된 파일을 실제 규칙 기반으로 스캔해 안전 리포트를 생성합니다.",
+      assuranceTitle: "완벽 보장이 아닌 보조 스캔",
+      assuranceBody:
+        "RepoSeal은 공개 전 위험 가능성을 찾도록 돕는 도구입니다. 저장소가 완전히 안전하다는 보증은 아니므로 공개 전 보안, 라이선스, 배포 체크리스트를 직접 함께 검토하세요.",
       cardTitle: "저장소 분석",
       cardSubtitle: "공개 저장소 스캔 · GitHub API",
       inputLabel: "GitHub 저장소 URL",
@@ -199,6 +214,15 @@ export const translations = {
       recommendedFixes: "권장 수정",
       foundIssues: "발견된 이슈",
       noIssues: "현재 스캔 규칙 기준으로 발견된 이슈가 없습니다.",
+      disclaimerTitle: "가이드로 활용하세요",
+      disclaimerBody:
+        "RepoSeal은 보조 스캐너입니다. 일부 이슈를 놓치거나 오탐을 표시할 수 있으므로 수동 보안 검토를 대체하지 말고 검토 과정을 돕는 자료로 사용하세요.",
+      actionPlan: "개발자 Action Plan",
+      noActionItems:
+        "공개 체크리스트를 릴리스 노트에 남기고, 저장소 공개 범위나 배포 설정을 바꾸기 전에 다시 스캔하세요.",
+      copyReport: "Markdown 복사",
+      copiedReport: "복사됨",
+      downloadReport: "리포트 다운로드",
       severityLabels: {
         critical: "치명",
         high: "높음",

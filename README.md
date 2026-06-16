@@ -4,6 +4,8 @@ RepoSeal is an open-source web service for checking GitHub repositories before t
 
 The current version runs as a static frontend and scans public GitHub repositories directly from the browser with the GitHub API. Private repositories and authenticated high-volume scans require a backend integration in a future release.
 
+RepoSeal is an assistive review tool, not a guarantee that a repository is perfectly safe. Use the report to support manual security, license, and deployment review before publishing.
+
 ## Features
 
 - GitHub repository URL and GitHub Pages project URL input with validation
@@ -11,6 +13,8 @@ The current version runs as a static frontend and scans public GitHub repositori
 - Real public repository scan flow with loading state and automatic result scrolling
 - Public Safety Score and release risk summary
 - Severity-tagged issues for secrets, risky files, documentation, license, CORS, debug mode, and Docker exposure
+- Developer action plan generated from detected issues
+- Markdown report copy and download for issues, pull requests, or release notes
 - Feature cards for secret detection, risky config scanning, README checks, deployment review, public-ready checklist, and auto fix guidance
 - Responsive dark glassmorphism UI inspired by modern developer tooling
 

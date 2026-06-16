@@ -131,6 +131,15 @@ export function Scanner({ copy, resultCopy, language }: ScannerProps): JSX.Eleme
               {copy.title}
             </h2>
             <p className="mt-5 text-base leading-8 text-slate-300">{copy.description}</p>
+            <div className="mt-6 rounded-lg border border-amber-300/20 bg-amber-400/10 p-4">
+              <div className="flex gap-3">
+                <ShieldAlert size={18} className="mt-1 flex-none text-amber-100" />
+                <div>
+                  <h3 className="text-sm font-black text-amber-50">{copy.assuranceTitle}</h3>
+                  <p className="mt-2 text-sm leading-6 text-amber-50/80">{copy.assuranceBody}</p>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="rounded-lg border border-white/10 bg-white/[0.06] p-4 shadow-2xl shadow-black/30 backdrop-blur-xl sm:p-6">
